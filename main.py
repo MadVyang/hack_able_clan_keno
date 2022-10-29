@@ -1,9 +1,9 @@
 import pandas as pd
 
-word_size = 4
+word_size = 3
 
 # read data
-df = pd.read_csv('data.csv')
+df = pd.read_csv('data2.csv')
 df['words'] = df['words'].astype('str')
 df = df.loc[(df['words'].str.len() == word_size) & (~df['words'].str.contains('[0-9]')) & (~df['words'].str.contains('[.]')), :]
 df = df['words']
@@ -15,13 +15,15 @@ word_dict = {}
 for word in words:
     for i in range(word_size):
         if word[:i+1] not in word_dict:
-            word_dict[word[:i+1]]=[]
+            word_dict[word[:i+1]] = []
         word_dict[word[:i+1]].append(word)
 
 horizontals = []
 verticals = []
 
 # generator
+
+
 def gen_horizontal():
     global word_size
     idx = len(verticals)
@@ -56,6 +58,7 @@ def gen(start_word):
             if not gen_horizontal():
                 return False
     return True
+
 
 # results
 for word in words:
